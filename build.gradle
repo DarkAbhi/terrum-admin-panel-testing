@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
+    id 'io.qameta.allure' version '2.9.3'
+}
+
+group 'in.terrum'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    allureVersion = '2.22.0'
+}
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+[compileKotlin, compileTestKotlin].forEach {
+    it.kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+dependencies {
+    testImplementation('org.seleniumhq.selenium:selenium-java:4.13.0')
+    testImplementation('io.github.bonigarcia:webdrivermanager:5.5.3')
+    testImplementation('org.slf4j:slf4j-simple:2.0.9')
+
+    testImplementation('org.testng:testng:7.8.0')
+}
+
+test {
+    useTestNG()
+}
+allure {
+    autoconfigure = true
+    version = "${allureVersion}"
+
+    useTestNG {
+        version = "${allureVersion}"
+    }
+}
