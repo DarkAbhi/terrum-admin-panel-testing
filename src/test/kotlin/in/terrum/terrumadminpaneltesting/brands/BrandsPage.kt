@@ -1,6 +1,7 @@
 package `in`.terrum.terrumadminpaneltesting.brands
 
 import `in`.terrum.terrumadminpaneltesting.BASE_URL
+import `in`.terrum.terrumadminpaneltesting.utils.generateRandomNumber
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.FindBy
@@ -34,7 +35,7 @@ class BrandsPage(private val driver: WebDriver) {
     }
 
     fun inputAndSubmitCorrectBrandData() {
-        val randomNumber = (0..10000).random()
+        val randomNumber = generateRandomNumber()
         nameInputField.sendKeys("Brand $randomNumber")
         websiteInputField.sendKeys("https://brand${randomNumber}.com")
         createBtn.click()
